@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Majesta',
             'email' => 'majestaresidence@gmail.com',
             'role' => 'admin',
+            'no_hp' => '081281184363',
             'password' => bcrypt('12345678')
         ]);
 

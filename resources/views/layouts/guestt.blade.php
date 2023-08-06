@@ -190,24 +190,20 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand nav-item" href="/dashboard"><img src="{{ asset('images/majesta.png') }}" alt="logo" style="height: 54px; width: 84px;" /></a>
+						<a class="navbar-brand nav-item" href="/"><img src="{{ asset('images/majesta.png') }}" alt="logo" style="height: 54px; width: 84px;" /></a>
 					</div>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse" id="site-collapse-nav" style="margin-top: 10px;">
                     <ul class="navbar-right pt-30">
-                        <li><a class="nav-item"> <form method="POST" action="{{ route('logout') }}">
-                                @csrf<button type="submit" class="button sm" >Logout</button>
-                            </form></a>
-                        </li>						
+                        <li><a href="{{ route('login') }}" data-effect="mfp-3d-unfold" class="button sm">Login</a></li>					
                     </ul>
 						<ul class="nav nav-list navbar-nav navbar-right">
-							<li><a class="nav-item" href="/tiperumah">Tipe Rumah</a></li>
-							<li><a class="nav-item" href="/galeri">Gallery</a></li>
-                            <li><a class="nav-item" href="/booking">Book Meet</a></li>
-							<li><a class="nav-item" href="/simulasikpr">Simulasi KPR</a></li>
-							<li><a class="nav-item" href="/content">News</a></li>
+							<li><a class="nav-item" href="/guesttiperumah">Tipe Rumah</a></li>
+							<li><a class="nav-item" href="/guestgaleri">Gallery</a></li>
+                            <li><a class="nav-item" href="/booking">Booking Pertemuan</a></li>
+							<li><a class="nav-item" href="/guestsimulasikpr">Simulasi KPR</a></li>
+                            <li><a class="nav-item" href="/guestcontent">News</a></li>
 							<li><a href="https://maps.google.com/maps?q=Majesta+Residence/" data-effect="mfp-3d-unfold" class="nav-item sm embaded-popup">Get Direction</a></li>
-							<li><a class="nav-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container -->
@@ -223,7 +219,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-2 col-sm-5 mobile-center">
-						<a href="/dashboard" class="footer-logo"><img src="{{ asset('images/majesta.png') }}" alt="logo" style="height: 89px; width: 124px;" /></a>
+						<a href="/" class="footer-logo"><img src="{{ asset('images/majesta.png') }}" alt="logo" style="height: 89px; width: 124px;" /></a>
 					</div><!-- .col -->
 
 					<div class="col-md-6 col-sm-2" style="margin-top: 20px;"> 

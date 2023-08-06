@@ -7,17 +7,16 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Models\User; 
 use Illuminate\Database\Eloquent\Builder;
-
+use App\Models\Content; 
+use App\Mail\JadwalConfirmationMail;
+use App\Models\Booking;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 
 class MajestaController extends Controller
 {
     //
-    public function dashboardadmin()
-    {
-        return view ('dashboardadmin');
-    }
-
     public function tiperumah()
     {
         return view ('tiperumah');
@@ -38,45 +37,33 @@ class MajestaController extends Controller
         return view ('simulasikpr');
     }
 
+    public function content()
+    {
+        return view ('content');
+    }
+
     public function storebooking(Request $request)
     {
         // insert data ke table booking
 	    DB::table('booking')->insert([
         'nama' => $request->namalengkap,
         'email' => $request->email,
+        'no_hp' => $request->no_hp,
         'date' => $request->tanggalbooking
         ]);
     
         return redirect('/booking');
     }
 
-    public function viewbooking()
+    public function showContent()
     {
-        // mengambil data dari table booking
-    	$booking = DB::table('booking')->get();
- 
-    	return view('dashboardadmin',['booking' => $booking]);
+        $contents = Content::orderBy('created_at', 'desc')->paginate(6); // Menampilkan 6 konten per halaman
+        return view('content', compact('contents'));
     }
 
-    public function hapus_booking($id)
+    public function show($id)
     {
-        // menghapus data booking berdasarkan id yang dipilih
-        DB::table('booking')->where('id',$id)->delete();
-            
-        // alihkan halaman ke halaman dashboard admin
-        return redirect('/dashboardadmin');
-    }
-
-
-    public function filter(Request $request)
-    {
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-
-        $booking = DB::table('booking')->whereDate('date', '>=',$start_date)
-                            ->whereDate('date', '<=',$end_date)
-                            ->get();
-                
-        return view('dashboardadmin', compact('booking'));
+        $content = Content::findOrFail($id);
+        return view('show', compact('content'));
     }
 }

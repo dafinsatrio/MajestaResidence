@@ -48,6 +48,13 @@
                                 </div>
                                 <br/>
                                 <div class="input-box">
+                                <label for="no_hp" class="form-label">Phone Number</label>
+                                <br/>
+                                <br/>
+                                <input type="name" class="form-control" name="no_hp" id="no_hp" value="{{ Auth::user()->no_hp }}" readonly>
+                                </div>
+                                <br/>
+                                <div class="input-box">
                                 <label for="tanggalbooking" class=" form-control-label">Tanggal Booking</label>
                                 <br/>
                                 <br/>

@@ -1,7 +1,8 @@
-@extends('layouts.utama')
+@extends('layouts.guestt')
 @section('content')
-				<!-- Start .header-section -->
-				<div class="header-section header-slider" id="header">
+
+			<!-- Start .header-section -->
+            <div class="header-section header-slider" id="header">
 					<div class="single-hSlider hSlide-one" style="width: 100%;" data-vide-bg="poster: video/bg" data-vide-options="position: 50% 50%">
 						<div class="overlay light">
 							<div class="container">
@@ -19,13 +20,13 @@
 				</div><!-- .header-section -->
 
 		<br/>
-        <div class="gallery-section" id="">
-
+<div class="gallery-section" id="">
 		<div class="menu">
 			<button onclick="showKPR()">Simulasi KPR</button>
 			<button onclick="showPembayaranCash()">Simulasi Pembayaran Cash</button>
     	</div>
-    <div id="kprSection" style="display: none;">
+
+	<div id="kprSection" style="display: none;">
         <!-- Simulasi KPR Section -->
 		<div class="container">
 			<br/>
@@ -68,7 +69,7 @@
 		</div> <!-- /container -->
     </div>
 
-    <div id="cashSection" style="display: none;">
+	<div id="cashSection" style="display: none;">
         <!-- Simulasi Pembayaran Cash Section -->
         <div class="container">
             <br/>
@@ -119,112 +120,112 @@
 		window.onload = function () {
         showKPR(); // Display "Simulasi KPR" section by default
         };
-</script>
+		</script>
 
-<script>
-	function validateUangMuka() {
-	const jumlahPinjaman = parseFloat(document.getElementById('jumlahPinjaman').value);
-	let uangMukaPersen = parseFloat(document.getElementById('uangMukaPersen').value);
+		<script>
+		function validateUangMuka() {
+		const jumlahPinjaman = parseFloat(document.getElementById('jumlahPinjaman').value);
+		let uangMukaPersen = parseFloat(document.getElementById('uangMukaPersen').value);
 
-	if (uangMukaPersen > 99) {
-		alert('Uang Muka Max 99 persen');
-		uangMukaPersen = 99;
-		document.getElementById('uangMukaPersen').value = uangMukaPersen;
-	}
-
-	const uangMuka = (uangMukaPersen / 100) * jumlahPinjaman;
-	document.getElementById('uangMuka').value = uangMuka.toFixed(2);
-	}
-	function formatAngka(angka) {
-	return angka.toLocaleString('id-ID', { maximumFractionDigits: 2 });
-	}
-
-	function isFieldEmpty(fieldValue) {
-	return isNaN(fieldValue) || fieldValue.toString().trim() === '';
-	}
-
-	function calculateKPRFloating(jumlahPinjaman, uangMuka, sukuBungaTahun, jangkaWaktuTahun) {
-			if (jumlahPinjaman <= 0 || uangMuka < 0 || sukuBungaTahun <= 0 || jangkaWaktuTahun <= 0) {
-				alert('Nilai input harus positif atau nol.');
-				return null;
-			}
-		
-			const sukuBungaBulanan = sukuBungaTahun / 12 / 100;
-			const jumlahPinjamanSetelahDP = jumlahPinjaman - uangMuka;
-			const jumlahAngsuran = jumlahPinjamanSetelahDP * (sukuBungaBulanan / (1 - Math.pow(1 + sukuBungaBulanan, -jangkaWaktuTahun * 12)));
-			const rincianBulanan = [];
-			let sisaPinjaman = jumlahPinjamanSetelahDP;
-			let totalBunga = 0;
-			let totalAngsuran = 0;
-		
-			for (let bulan = 1; bulan <= jangkaWaktuTahun * 12; bulan++) {
-				const bungaBulanan = sisaPinjaman * sukuBungaBulanan;
-				const pembayaranPokok = jumlahAngsuran - bungaBulanan;
-				sisaPinjaman -= pembayaranPokok;
-		
-				rincianBulanan.push({
-				bulan: bulan,
-				angsuranBulanan: jumlahAngsuran,
-				bungaBulanan: bungaBulanan,
-				pembayaranPokok: pembayaranPokok,
-				sisaPinjaman: sisaPinjaman
-				});
-		
-				totalBunga += bungaBulanan;
-				totalAngsuran += jumlahAngsuran;
-			}
-		
-			return {
-				rincianBulanan: rincianBulanan,
-				totalPinjaman: jumlahPinjamanSetelahDP,
-				totalBunga: totalBunga,
-				totalAngsuran: totalAngsuran
-			};
-			}
-
-	function hitungKPR() {
-	const jumlahPinjaman = parseFloat(document.getElementById('jumlahPinjaman').value);
-	const uangMukaPersen = parseFloat(document.getElementById('uangMukaPersen').value);
-	const sukuBungaFloating = parseFloat(document.getElementById('sukuBungaFloating').value);
-	const jangkaWaktuTahun = parseFloat(document.getElementById('jangkaWaktuTahun').value);
-
-	if (isFieldEmpty(jumlahPinjaman) || isFieldEmpty(uangMukaPersen) || isFieldEmpty(sukuBungaFloating) || isFieldEmpty(jangkaWaktuTahun)) {
-		alert('Harap isi semua field sebelum melakukan perhitungan.');
-		return;
+		if (uangMukaPersen > 99) {
+			alert('Uang Muka Max 99 persen');
+			uangMukaPersen = 99;
+			document.getElementById('uangMukaPersen').value = uangMukaPersen;
 		}
-		const uangMuka = (uangMukaPersen / 100) * jumlahPinjaman; // Convert percentage to actual amount
-		const hasilKPR = calculateKPRFloating(jumlahPinjaman, uangMuka, sukuBungaFloating, jangkaWaktuTahun);
 
-	if (!hasilKPR) return; // Jika terjadi error validasi, berhenti.
+		const uangMuka = (uangMukaPersen / 100) * jumlahPinjaman;
+		document.getElementById('uangMuka').value = uangMuka.toFixed(2);
+		}
+		function formatAngka(angka) {
+		return angka.toLocaleString('id-ID', { maximumFractionDigits: 2 });
+		}
+	
+		function isFieldEmpty(fieldValue) {
+		return isNaN(fieldValue) || fieldValue.toString().trim() === '';
+		}
+	
+		function calculateKPRFloating(jumlahPinjaman, uangMuka, sukuBungaTahun, jangkaWaktuTahun) {
+				if (jumlahPinjaman <= 0 || uangMuka < 0 || sukuBungaTahun <= 0 || jangkaWaktuTahun <= 0) {
+					alert('Nilai input harus positif atau nol.');
+					return null;
+				}
+			
+				const sukuBungaBulanan = sukuBungaTahun / 12 / 100;
+				const jumlahPinjamanSetelahDP = jumlahPinjaman - uangMuka;
+				const jumlahAngsuran = jumlahPinjamanSetelahDP * (sukuBungaBulanan / (1 - Math.pow(1 + sukuBungaBulanan, -jangkaWaktuTahun * 12)));
+				const rincianBulanan = [];
+				let sisaPinjaman = jumlahPinjamanSetelahDP;
+				let totalBunga = 0;
+				let totalAngsuran = 0;
+			
+				for (let bulan = 1; bulan <= jangkaWaktuTahun * 12; bulan++) {
+					const bungaBulanan = sisaPinjaman * sukuBungaBulanan;
+					const pembayaranPokok = jumlahAngsuran - bungaBulanan;
+					sisaPinjaman -= pembayaranPokok;
+			
+					rincianBulanan.push({
+					bulan: bulan,
+					angsuranBulanan: jumlahAngsuran,
+					bungaBulanan: bungaBulanan,
+					pembayaranPokok: pembayaranPokok,
+					sisaPinjaman: sisaPinjaman
+					});
+			
+					totalBunga += bungaBulanan;
+					totalAngsuran += jumlahAngsuran;
+				}
+			
+				return {
+					rincianBulanan: rincianBulanan,
+					totalPinjaman: jumlahPinjamanSetelahDP,
+					totalBunga: totalBunga,
+					totalAngsuran: totalAngsuran
+				};
+				}
+	
+		function hitungKPR() {
+		const jumlahPinjaman = parseFloat(document.getElementById('jumlahPinjaman').value);
+		const uangMukaPersen = parseFloat(document.getElementById('uangMukaPersen').value);
+		const sukuBungaFloating = parseFloat(document.getElementById('sukuBungaFloating').value);
+		const jangkaWaktuTahun = parseFloat(document.getElementById('jangkaWaktuTahun').value);
 
-	const rincianKPRFloating = hasilKPR.rincianBulanan;
-	const totalPinjaman = formatAngka(hasilKPR.totalPinjaman);
-	const totalBunga = formatAngka(hasilKPR.totalBunga);
-	const totalAngsuran = formatAngka(hasilKPR.totalAngsuran);
+		if (isFieldEmpty(jumlahPinjaman) || isFieldEmpty(uangMukaPersen) || isFieldEmpty(sukuBungaFloating) || isFieldEmpty(jangkaWaktuTahun)) {
+			alert('Harap isi semua field sebelum melakukan perhitungan.');
+			return;
+			}
+			const uangMuka = (uangMukaPersen / 100) * jumlahPinjaman; // Convert percentage to actual amount
+			const hasilKPR = calculateKPRFloating(jumlahPinjaman, uangMuka, sukuBungaFloating, jangkaWaktuTahun);
+	
+		if (!hasilKPR) return; // Jika terjadi error validasi, berhenti.
+	
+		const rincianKPRFloating = hasilKPR.rincianBulanan;
+		const totalPinjaman = formatAngka(hasilKPR.totalPinjaman);
+		const totalBunga = formatAngka(hasilKPR.totalBunga);
+		const totalAngsuran = formatAngka(hasilKPR.totalAngsuran);
+	
+		// Tampilkan hasil perhitungan dalam bentuk tabel
+		let tableHtml = '<table><tr><th>Bulan</th><th>Angsuran Bulanan</th><th>Bunga Bulanan</th><th>Pokok Bayar</th><th>Sisa Pinjaman</th></tr>';
+		rincianKPRFloating.forEach((rincian) => {
+			tableHtml += `<tr><td>${rincian.bulan}</td><td>Rp ${formatAngka(rincian.angsuranBulanan)}</td><td>Rp ${formatAngka(rincian.bungaBulanan)}</td><td>Rp ${formatAngka(rincian.pembayaranPokok)}</td><td>Rp ${formatAngka(rincian.sisaPinjaman)}</td></tr>`;
+		});
+		tableHtml += '</table>';
+	
+		tableHtml += `<p>Total Pinjaman Setelah DP: Rp ${totalPinjaman}</p>`;
+		tableHtml += `<p>Total Bunga: Rp ${totalBunga}</p>`;
+		tableHtml += `<p>Total Angsuran: Rp ${totalAngsuran}</p>`;
+	
+		document.getElementById('hasilKPR').innerHTML = tableHtml;
+		}
 
-	// Tampilkan hasil perhitungan dalam bentuk tabel
-	let tableHtml = '<table><tr><th>Bulan</th><th>Angsuran Bulanan</th><th>Bunga Bulanan</th><th>Pokok Bayar</th><th>Sisa Pinjaman</th></tr>';
-	rincianKPRFloating.forEach((rincian) => {
-		tableHtml += `<tr><td>${rincian.bulan}</td><td>Rp ${formatAngka(rincian.angsuranBulanan)}</td><td>Rp ${formatAngka(rincian.bungaBulanan)}</td><td>Rp ${formatAngka(rincian.pembayaranPokok)}</td><td>Rp ${formatAngka(rincian.sisaPinjaman)}</td></tr>`;
-	});
-	tableHtml += '</table>';
+		function resetForm() {
+		document.getElementById('jumlahPinjaman').value = "";
+		document.getElementById('uangMukaPersen').value = "";
+		document.getElementById('sukuBungaFloating').value = "";
+		document.getElementById('jangkaWaktuTahun').value = "";
 
-	tableHtml += `<p>Total Pinjaman Setelah DP: Rp ${totalPinjaman}</p>`;
-	tableHtml += `<p>Total Bunga: Rp ${totalBunga}</p>`;
-	tableHtml += `<p>Total Angsuran: Rp ${totalAngsuran}</p>`;
-
-	document.getElementById('hasilKPR').innerHTML = tableHtml;
-	}
-
-	function resetForm() {
-	document.getElementById('jumlahPinjaman').value = "";
-	document.getElementById('uangMukaPersen').value = "";
-	document.getElementById('sukuBungaFloating').value = "";
-	document.getElementById('jangkaWaktuTahun').value = "";
-
-	document.getElementById('hasilKPR').innerHTML = "";
-	}
-</script>
+		document.getElementById('hasilKPR').innerHTML = "";
+		}
+  </script>
 
 <script>
     function hitungPembayaranCash() {

@@ -10,5 +10,5 @@ class booking extends Model
 
     protected $table = "booking";
  
-    protected $fillable = ['nama','email','date'];
+    protected $fillable = ['nama', 'email', 'no_hp', 'date', 'jam', 'status'];
 }

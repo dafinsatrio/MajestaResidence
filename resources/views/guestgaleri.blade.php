@@ -1,4 +1,4 @@
-@extends('layouts.utama')
+@extends('layouts.guestt')
 @section('content')
 
 		<!-- Start .header-section -->
@@ -91,7 +91,5 @@
 							</div>
 					</div><!-- .container -->
 			</div><!-- .gallery-section -->
-			
-
 
 @endsection
